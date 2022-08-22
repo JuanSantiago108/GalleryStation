@@ -1,0 +1,38 @@
+@model Art
+
+<h1>Add Artwork</h1>
+
+<form asp-controller="Art" asp-action="Create" method="POST">
+    <div>
+        <label asp-for="Title"></label>
+        <span asp-validation-for="Title"></span>
+        <input asp-for="Title">
+    </div>
+    <div>
+        <label asp-for="Description"></label>
+        <span asp-validation-for="Description"></span>
+        <input asp-for="Description">
+    </div>
+    <div>
+        <label asp-for="Price"></label>
+        <span asp-validation-for="Price"></span>
+        <input asp-for="Price">
+    </div>
+    <div>
+        <label asp-for="Category"></label>
+        <span asp-validation-for="Category"></span>
+        <input asp-for="Category">
+    </div>
+    <div>
+        <label asp-for="ArtDimensions"></label>
+        <span asp-validation-for="ArtDimensions"></span>
+        <input asp-for="ArtDimensions">
+    </div>
+    <div>
+        <label asp-for="ArtPiece"></label>
+        <span asp-validation-for="ArtPiece"></span>
+        <input asp-for="ArtPiece">
+    </div>
+    <button>Create</button>
+</form>
+
