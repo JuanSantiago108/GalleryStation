@@ -21,9 +21,9 @@ public class Art
     public string Description {get; set;}
 
     [Required(ErrorMessage = "is required")]
-    [MinLength(2, ErrorMessage = "must be at least 2 characters")]
+    [DataType(DataType.Currency)]
     [Display(Name = "Price")]
-    public double Price {get; set;}
+    public int Price {get; set;}
 
     [Required(ErrorMessage = "is required")]
     [MinLength(2, ErrorMessage = "must be at least 2 characters")]
@@ -35,8 +35,7 @@ public class Art
     [Display(Name = "Art Dimensions")]
     public string ArtDimensions {get; set;}
 
-    [Required(ErrorMessage = "is required")]
-    [DataType(DataType.Html)]
+    // // [DataType(DataType.Html)]
     [Display(Name = "Art Piece")]
     public string ArtPiece {get; set;}
 
@@ -48,8 +47,7 @@ public class Art
 
     public User? Creator { get; set; }
 
-
-
+    public List<ShoppingCart> ListOfOrders { get; set; } = new List<ShoppingCart>();
 
 
 

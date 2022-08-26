@@ -31,14 +31,16 @@ public class User
     [Display(Name = "Confirm Password")]
     public string ConfirmPassword {get; set;}
 
+    public string ProfilePic {get;set;} = "./img/Jiji.png";
+
 
     public DateTime CreateAt {get; set;} = DateTime.Now;
 
     public DateTime UpdatedAt {get; set;} = DateTime.Now;
 
+    public List<Art> SubmitedArt {get; set;} = new List<Art>();
 
-    List<Purchase> PurchaseHistory = new List<Purchase>();
-
+    public List<ShoppingCart> CurrentCart { get; set; } = new List<ShoppingCart>();
     
 
 }

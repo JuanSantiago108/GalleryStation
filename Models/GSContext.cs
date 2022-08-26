@@ -12,6 +12,7 @@ public class GSContext : DbContext
     public DbSet<Art> Arts {get; set;}
 
     public DbSet<Art> ArtOwner {get; set;}
-    public DbSet<Purchase> Purchase {get; set;}
+
+    public DbSet<ShoppingCart> CartItems {get; set;}
 
 }

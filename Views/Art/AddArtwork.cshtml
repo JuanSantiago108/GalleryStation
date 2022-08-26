@@ -1,38 +1,252 @@
 @model Art
+<!DOCTYPE html>
+<html lang="en">
 
-<h1>Add Artwork</h1>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/LoginRegistration.styles.css" asp-append-version="true" />
+    <title>GalleryStation</title>
+</head>
 
-<form asp-controller="Art" asp-action="Create" method="POST">
-    <div>
-        <label asp-for="Title"></label>
-        <span asp-validation-for="Title"></span>
-        <input asp-for="Title">
+<body>
+    <div class="mx-auto border-light border-bottom border-3 shadow-lg">
+        <div class="d-flex justify-content-between align-items-center bg-dark text-light p-2">
+
+            <h1 class="h2 text-bold"><img class="log" src="./img/icons8-artstation-64.png">GalleryStation</h1>
+
+            <div class="d-flex align-items-center">
+
+                <a href="/shopping/cart"><img src="../img/cart_icon.png" alt="wuh" class="car"></a>
+                <img src="./img/icons8-bot-64.png" alt="nya"
+                    class='rob rounded-circle profile-pic border border-dark border-4'>
+                <div>
+                    <h6>Profile</h6>
+                </div>
+                <!-- <a class="nav-link active btn btn-rounded bg-gradient bg-info text-white m-1" href="#">Market</a> -->
+                <form>
+                    <button class='btn block-cube block-cube-hover' formaction="/">
+                        <div class='bg-top'>
+                            <div class='bg-inner'></div>
+                        </div>
+                        <div class='bg-right'>
+                            <div class='bg-inner'></div>
+                        </div>
+                        <div class='bg'>
+                            <div class='bg-inner'></div>
+                        </div>
+                        <div class='text text-white'>
+                            Market
+                        </div>
+                    </button>
+                </form>
+                <!-- <a class="nav-link active btn btn-rounded bg-gradient bg-info text-white m-1" href="#">Profile</a> -->
+                <form>
+                    <button class='btn block-cube block-cube-hover' formaction="/">
+                        <div class='bg-top'>
+                            <div class='bg-inner'></div>
+                        </div>
+                        <div class='bg-right'>
+                            <div class='bg-inner'></div>
+                        </div>
+                        <div class='bg'>
+                            <div class='bg-inner'></div>
+                        </div>
+                        <div class='text text-white'>
+                            Profile
+                        </div>
+                    </button>
+                </form>
+                <!-- <a class="nav-link active btn btn-rounded bg-gradient bg-info text-white m-1" href="/art/new">Add
+                    Art</a> -->
+                <form>
+                    <button class='btn block-cube block-cube-hover' formaction="/art/new">
+                        <div class='bg-top'>
+                            <div class='bg-inner'></div>
+                        </div>
+                        <div class='bg-right'>
+                            <div class='bg-inner'></div>
+                        </div>
+                        <div class='bg'>
+                            <div class='bg-inner'></div>
+                        </div>
+                        <div class='text text-white'>
+                            Add Art
+                        </div>
+                    </button>
+                </form>
+                <form asp-controller="User" asp-action="Logout" method="POST">
+                    <button class="nav-link active btn btn-rounded bg-info bg-gradient text-white m-1">Logout</button>
+                </form>
+                <!-- <form asp-controller="User" asp-action="Logout" method="POST">
+                    <button class='btn block-cube block-cube-hover' formaction="/register">
+                        <div class='bg-top'>
+                            <div class='bg-inner'></div>
+                        </div>
+                        <div class='bg-right'>
+                            <div class='bg-inner'></div>
+                        </div>
+                        <div class='bg'>
+                            <div class='bg-inner'></div>
+                        </div>
+                        <div class='text text-white'>
+                            Logout
+                        </div>
+                    </button>
+                </form> -->
+                <!-- <a class="nav-link active btn btn-rounded bg-gradient bg-info text-white m-1"
+                    href="/register">Register</a> -->
+                <form>
+                    <button class='btn block-cube block-cube-hover' formaction="/register">
+                        <div class='bg-top'>
+                            <div class='bg-inner'></div>
+                        </div>
+                        <div class='bg-right'>
+                            <div class='bg-inner'></div>
+                        </div>
+                        <div class='bg'>
+                            <div class='bg-inner'></div>
+                        </div>
+                        <div class='text text-light'>
+                            Register
+                        </div>
+                    </button>
+                </form>
+                <!-- <a class="nav-link active btn btn-rounded bg-gradient bg-info text-white m-1" href="/login">Login</a> -->
+                <form>
+                    <button class='btn block-cube block-cube-hover' formaction="/login">
+                        <div class='bg-top'>
+                            <div class='bg-inner'></div>
+                        </div>
+                        <div class='bg-right'>
+                            <div class='bg-inner'></div>
+                        </div>
+                        <div class='bg'>
+                            <div class='bg-inner'></div>
+                        </div>
+                        <div class='text text-light'>
+                            Log In
+                        </div>
+                    </button>
+                </form>
+            </div>
+        </div>
     </div>
     <div>
-        <label asp-for="Description"></label>
-        <span asp-validation-for="Description"></span>
-        <input asp-for="Description">
+        <form class='form' asp-controller="Art" asp-action="Save" method="POST" enctype="multipart/form-data">
+            <div class='control'>
+                <h1 class="text-center">
+                    Add ArtWork
+                </h1>
+            </div>
+            <div class='control block-cube block-input'>
+                <span asp-validation-for="Title"></span>
+                <input asp-for="Title" placeholder="Title" />
+                <div class='bg-top'>
+                    <div class='bg-inner'></div>
+                </div>
+                <div class='bg-right'>
+                    <div class='bg-inner'></div>
+                </div>
+                <div class='bg'>
+                    <div class='bg-inner'></div>
+                </div>
+            </div>
+            <div class='control block-cube block-input'>
+                <span asp-validation-for="Description"></span>
+                <input asp-for="Description" placeholder="Description" />
+                <div class='bg-top'>
+                    <div class='bg-inner'></div>
+                </div>
+                <div class='bg-right'>
+                    <div class='bg-inner'></div>
+                </div>
+                <div class='bg'>
+                    <div class='bg-inner'></div>
+                </div>
+            </div>
+            <div class='control block-cube block-input'>
+                <span asp-validation-for="Price"></span>
+                <input asp-for="Price" placeholder="Price" />
+                <div class='bg-top'>
+                    <div class='bg-inner'></div>
+                </div>
+                <div class='bg-right'>
+                    <div class='bg-inner'></div>
+                </div>
+                <div class='bg'>
+                    <div class='bg-inner'></div>
+                </div>
+            </div>
+            <div class='control block-cube block-input'>
+                <span asp-validation-for="Category"></span>
+                <input asp-for="Category" placeholder="Category" />
+                <div class='bg-top'>
+                    <div class='bg-inner'></div>
+                </div>
+                <div class='bg-right'>
+                    <div class='bg-inner'></div>
+                </div>
+                <div class='bg'>
+                    <div class='bg-inner'></div>
+                </div>
+            </div>
+            <div class='control block-cube block-input'>
+                <span asp-validation-for="ArtDimensions"></span>
+                <input asp-for="ArtDimensions" placeholder="Art Dimensions" />
+                <div class='bg-top'>
+                    <div class='bg-inner'></div>
+                </div>
+                <div class='bg-right'>
+                    <div class='bg-inner'></div>
+                </div>
+                <div class='bg'>
+                    <div class='bg-inner'></div>
+                </div>
+            </div>
+            <div class='control block-cube block-input'>
+                <span asp-validation-for="ArtPiece"></span>
+                <input type="file" name="imgfile" placeholder="Art Piece" />
+                <div class='bg-top'>
+                    <div class='bg-inner'></div>
+                </div>
+                <div class='bg-right'>
+                    <div class='bg-inner'></div>
+                </div>
+                <div class='bg'>
+                    <div class='bg-inner'></div>
+                </div>
+            </div>
+            <button class='btn block-cube block-cube-hover' type='submit'>
+                <div class='bg-top'>
+                    <div class='bg-inner'></div>
+                </div>
+                <div class='bg-right'>
+                    <div class='bg-inner'></div>
+                </div>
+                <div class='bg'>
+                    <div class='bg-inner'></div>
+                </div>
+                <div class='text'>
+                    Create
+                </div>
+            </button>
+        </form>
     </div>
-    <div>
-        <label asp-for="Price"></label>
-        <span asp-validation-for="Price"></span>
-        <input asp-for="Price">
-    </div>
-    <div>
-        <label asp-for="Category"></label>
-        <span asp-validation-for="Category"></span>
-        <input asp-for="Category">
-    </div>
-    <div>
-        <label asp-for="ArtDimensions"></label>
-        <span asp-validation-for="ArtDimensions"></span>
-        <input asp-for="ArtDimensions">
-    </div>
-    <div>
-        <label asp-for="ArtPiece"></label>
-        <span asp-validation-for="ArtPiece"></span>
-        <input asp-for="ArtPiece">
-    </div>
-    <button>Create</button>
+
+@{
+    ViewData["Title"]="Save";
+}
+
+<form enctype="multipart/form-data" asp-controller="Art" asp-action="Save">
+    <input type="file" name="imgfile">
+    <input type="submit" value="Upload Image">
+    <h3>@ViewData["Message"]</h3>
 </form>
+
+</body>
+</html>
 

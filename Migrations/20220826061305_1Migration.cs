@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace GalleryStation.Migrations
 {
-    public partial class FirstMigration : Migration
+    public partial class _1Migration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -25,6 +25,8 @@ namespace GalleryStation.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Password = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
+                    ProfilePic = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     CreateAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false)
                 },
@@ -35,7 +37,7 @@ namespace GalleryStation.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Arts",
+                name: "Art",
                 columns: table => new
                 {
                     ArtId = table.Column<int>(type: "int", nullable: false)
@@ -44,10 +46,12 @@ namespace GalleryStation.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Description = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Price = table.Column<double>(type: "double", nullable: false),
+                    Price = table.Column<int>(type: "int", nullable: false),
                     Category = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     ArtDimensions = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    ArtPiece = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     CreateAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
@@ -55,9 +59,9 @@ namespace GalleryStation.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Arts", x => x.ArtId);
+                    table.PrimaryKey("PK_Art", x => x.ArtId);
                     table.ForeignKey(
-                        name: "FK_Arts_Users_UserId",
+                        name: "FK_Art_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "UserId",
@@ -66,27 +70,28 @@ namespace GalleryStation.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Association",
+                name: "CartItems",
                 columns: table => new
                 {
-                    AssociationId = table.Column<int>(type: "int", nullable: false)
+                    CartId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    CreateAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Quantity = table.Column<int>(type: "int", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    ArtId = table.Column<int>(type: "int", nullable: false)
+                    ArtId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Association", x => x.AssociationId);
+                    table.PrimaryKey("PK_CartItems", x => x.CartId);
                     table.ForeignKey(
-                        name: "FK_Association_Arts_ArtId",
+                        name: "FK_CartItems_Art_ArtId",
                         column: x => x.ArtId,
-                        principalTable: "Arts",
+                        principalTable: "Art",
                         principalColumn: "ArtId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Association_Users_UserId",
+                        name: "FK_CartItems_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "UserId",
@@ -95,28 +100,28 @@ namespace GalleryStation.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Arts_UserId",
-                table: "Arts",
+                name: "IX_Art_UserId",
+                table: "Art",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Association_ArtId",
-                table: "Association",
+                name: "IX_CartItems_ArtId",
+                table: "CartItems",
                 column: "ArtId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Association_UserId",
-                table: "Association",
+                name: "IX_CartItems_UserId",
+                table: "CartItems",
                 column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Association");
+                name: "CartItems");
 
             migrationBuilder.DropTable(
-                name: "Arts");
+                name: "Art");
 
             migrationBuilder.DropTable(
                 name: "Users");

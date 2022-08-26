@@ -44,8 +44,8 @@ namespace GalleryStation.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<double>("Price")
-                        .HasColumnType("double");
+                    b.Property<int>("Price")
+                        .HasColumnType("int");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -64,16 +64,16 @@ namespace GalleryStation.Migrations
                     b.ToTable("Art");
                 });
 
-            modelBuilder.Entity("GalleryStation.Models.Purchase", b =>
+            modelBuilder.Entity("GalleryStation.Models.ShoppingCart", b =>
                 {
-                    b.Property<int>("PurchaseId")
+                    b.Property<int>("CartId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     b.Property<int>("ArtId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("CreateAt")
+                    b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
 
                     b.Property<int>("Quantity")
@@ -85,13 +85,13 @@ namespace GalleryStation.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
-                    b.HasKey("PurchaseId");
+                    b.HasKey("CartId");
 
                     b.HasIndex("ArtId");
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Purchase");
+                    b.ToTable("CartItems");
                 });
 
             modelBuilder.Entity("GalleryStation.Models.User", b =>
@@ -115,6 +115,10 @@ namespace GalleryStation.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<string>("ProfilePic")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime(6)");
 
@@ -126,7 +130,7 @@ namespace GalleryStation.Migrations
             modelBuilder.Entity("GalleryStation.Models.Art", b =>
                 {
                     b.HasOne("GalleryStation.Models.User", "Creator")
-                        .WithMany()
+                        .WithMany("SubmitedArt")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -134,23 +138,35 @@ namespace GalleryStation.Migrations
                     b.Navigation("Creator");
                 });
 
-            modelBuilder.Entity("GalleryStation.Models.Purchase", b =>
+            modelBuilder.Entity("GalleryStation.Models.ShoppingCart", b =>
                 {
-                    b.HasOne("GalleryStation.Models.Art", "ArtPiece")
-                        .WithMany()
+                    b.HasOne("GalleryStation.Models.Art", "PurchasedArt")
+                        .WithMany("ListCustomer")
                         .HasForeignKey("ArtId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("GalleryStation.Models.User", "Buyer")
-                        .WithMany()
+                    b.HasOne("GalleryStation.Models.User", "Purchaser")
+                        .WithMany("CurrentCart")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("ArtPiece");
+                    b.Navigation("PurchasedArt");
 
-                    b.Navigation("Buyer");
+                    b.Navigation("Purchaser");
+                });
+
+            modelBuilder.Entity("GalleryStation.Models.Art", b =>
+                {
+                    b.Navigation("ListCustomer");
+                });
+
+            modelBuilder.Entity("GalleryStation.Models.User", b =>
+                {
+                    b.Navigation("CurrentCart");
+
+                    b.Navigation("SubmitedArt");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,27 +1,198 @@
-<div class="navbar navbar-dark bg-secondary">
-<div> 
-    <img src="Views/Content/Img/kindpng_7485176.png" class="img-center" />
-</div>
-    <div>
-        <h1>GalleryStation</h1>
+@model List<Art>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/LoginRegistration.styles.css" asp-append-version="true" />
+    <title>GalleryStation</title>
+</head>
+
+<body>
+    <div class="mx-auto border-light border-bottom border-3 shadow-lg">
+        <div class="d-flex justify-content-between align-items-center bg-dark text-light p-2">
+
+            <h1 class="h2 text-bold"><img class="log" src="./img/icons8-artstation-64.png">GalleryStation</h1>
+
+            <div class="d-flex align-items-center">
+
+                <a href="/shopping/cart"><img src="../img/cart_icon.png" alt="wuh" class="car"></a>
+                <img src="./img/icons8-bot-64.png" alt="nya"
+                    class='rob rounded-circle profile-pic border border-dark border-4'>
+                <div>
+                    <h6>Profile</h6>
+                </div>
+                <!-- <a class="nav-link active btn btn-rounded bg-gradient bg-info text-white m-1" href="#">Market</a> -->
+                <form>
+                    <button class='btn block-cube block-cube-hover' formaction="/">
+                        <div class='bg-top'>
+                            <div class='bg-inner'></div>
+                        </div>
+                        <div class='bg-right'>
+                            <div class='bg-inner'></div>
+                        </div>
+                        <div class='bg'>
+                            <div class='bg-inner'></div>
+                        </div>
+                        <div class='text text-white'>
+                            Market
+                        </div>
+                    </button>
+                </form>
+                <!-- <a class="nav-link active btn btn-rounded bg-gradient bg-info text-white m-1" href="#">Profile</a> -->
+                <form>
+                    <button class='btn block-cube block-cube-hover' formaction="/">
+                        <div class='bg-top'>
+                            <div class='bg-inner'></div>
+                        </div>
+                        <div class='bg-right'>
+                            <div class='bg-inner'></div>
+                        </div>
+                        <div class='bg'>
+                            <div class='bg-inner'></div>
+                        </div>
+                        <div class='text text-white'>
+                            Profile
+                        </div>
+                    </button>
+                </form>
+                <!-- <a class="nav-link active btn btn-rounded bg-gradient bg-info text-white m-1" href="/art/new">Add
+                    Art</a> -->
+                <form>
+                    <button class='btn block-cube block-cube-hover' formaction="/art/new">
+                        <div class='bg-top'>
+                            <div class='bg-inner'></div>
+                        </div>
+                        <div class='bg-right'>
+                            <div class='bg-inner'></div>
+                        </div>
+                        <div class='bg'>
+                            <div class='bg-inner'></div>
+                        </div>
+                        <div class='text text-white'>
+                            Add Art
+                        </div>
+                    </button>
+                </form>
+                <form asp-controller="User" asp-action="Logout" method="POST">
+                    <button class="nav-link active btn btn-rounded bg-info bg-gradient text-white m-1">Logout</button>
+                </form>
+                <!-- <form asp-controller="User" asp-action="Logout" method="POST">
+                    <button class='btn block-cube block-cube-hover' formaction="/register">
+                        <div class='bg-top'>
+                            <div class='bg-inner'></div>
+                        </div>
+                        <div class='bg-right'>
+                            <div class='bg-inner'></div>
+                        </div>
+                        <div class='bg'>
+                            <div class='bg-inner'></div>
+                        </div>
+                        <div class='text text-white'>
+                            Logout
+                        </div>
+                    </button>
+                </form> -->
+                <!-- <a class="nav-link active btn btn-rounded bg-gradient bg-info text-white m-1"
+                    href="/register">Register</a> -->
+                <form>
+                    <button class='btn block-cube block-cube-hover' formaction="/register">
+                        <div class='bg-top'>
+                            <div class='bg-inner'></div>
+                        </div>
+                        <div class='bg-right'>
+                            <div class='bg-inner'></div>
+                        </div>
+                        <div class='bg'>
+                            <div class='bg-inner'></div>
+                        </div>
+                        <div class='text text-light'>
+                            Register
+                        </div>
+                    </button>
+                </form>
+                <!-- <a class="nav-link active btn btn-rounded bg-gradient bg-info text-white m-1" href="/login">Login</a> -->
+                <form>
+                    <button class='btn block-cube block-cube-hover' formaction="/login">
+                        <div class='bg-top'>
+                            <div class='bg-inner'></div>
+                        </div>
+                        <div class='bg-right'>
+                            <div class='bg-inner'></div>
+                        </div>
+                        <div class='bg'>
+                            <div class='bg-inner'></div>
+                        </div>
+                        <div class='text text-light'>
+                            Log In
+                        </div>
+                    </button>
+                </form>
+            </div>
+        </div>
     </div>
-    <div>
-        <"Cart Icon">
-        <button>Market</button>
-        <button asp-controller="User">Profile</button>
-        <form asp-controller="User" asp-action="Logout" method="POST">
-            <button>Logout</button>
-        </form>
-        <"Profile Image">
-        <a class="nav-link active" href="/register">Register</a>
-        <a href="/login">Login</a>
+    <div class="displayArt border border-3 border-light bg-dark text-light rounded p-3 m-5">
+        <div class="text-end">
+            <div>Forest , Cyber, Fantasy</div>
+        </div>
+        <div>
+            @if (ViewBag.Art != null)
+            {
+                @foreach (Art a in ViewBag.Art)
+                {
+                    bool alreadyInCart = a.ListOfOrders.Any(c => c.ArtId == a.ArtId);
+                    <div class="imgAlign">
+                        <div class="imgDis">
+                            <img class="thumbnail" src="../img/@a.ArtPiece">
+                        </div>
+
+                        <div class="text-center">
+                            <div style="display: flex; align-items: center; justify-content: space-evenly;">
+                                <h2><a href="/art/@a.ArtId">@a.Title</a></h2>
+                                <h3>@a.Price.ToString("C")</h3>
+                            </div>
+                            <div style="display: flex; align-items: center; justify-content: space-evenly;">
+                                @if (a.UserId == Context.Session.GetInt32("UUID") && alreadyInCart == false)
+                                {
+                                    <form asp-controller="Art" asp-route-artToBeBought="@a.ArtId" asp-action="AddToCart" method="POST">
+                                        <button class="btn btn-success">Add to Cart!</button>
+                                    </form>
+                                }
+                                else
+                                {
+                                    <a href="/shopping/cart">
+                                        <button class="btn btn-success">View in Cart</button>
+                                    </a>
+                                    <h1>
+                                        user : @a.UserId
+                                    </h1>
+                                    <h4>
+
+                                    curr_user : @Context.Session.GetInt32("UUID")
+                                    </h4>
+                                    <h4>
+
+                                    art : @a.ArtId
+                                    </h4>
+                                }
+                            </div>
+                            <form asp-controller="Art" asp-action="Delete" asp-route-deletedArtId="@a.ArtId" method="POST"
+                        style="margin-top: 5px;">
+                                <button class="btn btn-danger"> Delete </button>
+                            </form>
+
+                        </div>
+                    </div>
+                }
+            }
+        </div>
     </div>
-</div>
+</body>
 
 
-<div>
-    <div>Forest , Cyber, Fantasy</div>
-    <div>
-        <p>Image Body All</p>
-    </div>
-</div>
+
+</html>

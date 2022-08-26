@@ -2,6 +2,7 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using GalleryStation.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace GalleryStation.Controllers;
 
@@ -35,9 +36,15 @@ public class UserController : Controller
     [HttpGet("/")]
     public IActionResult Index()
     {
+        List<Art> AllArt = _context.Arts.Include(a => a.ListOfOrders)
+        .ThenInclude(u => u.Purchaser).ToList();
+        ViewBag.OneUser = _context.Users.FirstOrDefault(w => w.UserId == 1);
+        ViewBag.Art = AllArt;
 
+        // ViewBag.Cart = _context.U
         return View("Index");
     }
+    
 
     [HttpGet("/register")]
     public IActionResult ToRegister()

@@ -25,6 +25,6 @@ if (!app.Environment.IsDevelopment())
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=img}/{action=Index}/{id?}");//Made change controller Home to img
 
 app.Run();
